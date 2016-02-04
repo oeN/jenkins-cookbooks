@@ -1,0 +1,22 @@
+DEPENDENCIES
+  apt
+  docker
+    git: https://github.com/intinig/opsworks-docker.git
+    revision: e89d776c2f6b1796220cd9cf95d26b9b2444f552
+  jenkins
+
+GRAPH
+  apt (2.9.2)
+  aws (2.5.0)
+  docker (0.0.2)
+    aws (= 2.5.0)
+    logrotate (~> 1.8.0)
+  jenkins (2.4.1)
+    apt (~> 2.0)
+    runit (~> 1.5)
+    yum (~> 3.0)
+  logrotate (1.8.0)
+  packagecloud (0.1.1)
+  runit (1.7.6)
+    packagecloud (>= 0.0.0)
+  yum (3.9.0)

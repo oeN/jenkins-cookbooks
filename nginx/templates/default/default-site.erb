@@ -14,7 +14,6 @@ server {
     <% end %>
     deny all;
 
-    proxy_redirect  http:// https://;
     proxy_pass      http://jenkins;
   }
 }

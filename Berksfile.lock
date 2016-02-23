@@ -4,19 +4,10 @@ DEPENDENCIES
     git: https://github.com/intinig/opsworks-docker.git
     revision: e89d776c2f6b1796220cd9cf95d26b9b2444f552
   jenkins
-  nginx
 
 GRAPH
-  7-zip (1.0.2)
-    windows (>= 1.2.2)
   apt (2.9.2)
   aws (2.5.0)
-  bluepill (2.4.2)
-    rsyslog (>= 2.0)
-  build-essential (2.3.1)
-    7-zip (>= 0.0.0)
-  chef_handler (1.3.0)
-  compat_resource (12.7.3)
   docker (0.0.2)
     aws (= 2.5.0)
     logrotate (~> 1.8.0)
@@ -25,21 +16,7 @@ GRAPH
     runit (~> 1.5)
     yum (~> 3.0)
   logrotate (1.8.0)
-  nginx (2.7.6)
-    apt (~> 2.2)
-    bluepill (~> 2.3)
-    build-essential (~> 2.0)
-    ohai (~> 2.0)
-    runit (~> 1.2)
-    yum-epel (~> 0.3)
-  ohai (2.1.0)
   packagecloud (0.1.1)
-  rsyslog (4.0.0)
-    compat_resource (>= 0.0.0)
   runit (1.7.6)
     packagecloud (>= 0.0.0)
-  windows (1.39.1)
-    chef_handler (>= 0.0.0)
   yum (3.9.0)
-  yum-epel (0.6.5)
-    yum (~> 3.2)

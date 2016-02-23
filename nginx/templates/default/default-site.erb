@@ -2,17 +2,25 @@ upstream jenkins {
   server 127.0.0.1:<%= node['jenkins']['master']['port'] %> fail_timeout=0;
 }
 
+map $http_x_forwarded_for $allowed {
+  default deny;
+  <% node['nginx']['whitelisted_ips'].each do |ip| %>
+    ~\s*<%= ip %>$ allow;
+  <% end %>
+}
+
 server {
   listen <%= node['nginx']['port'] -%>;
   server_name  <%= node['hostname'] %>;
 
   access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
 
+  location /ping {
+    return 200 'pong';
+  }
+
   location / {
-    <% node['nginx']['whitelisted_ips'].each do |ip| %>
-      allow <%= ip %>;
-    <% end %>
-    deny all;
+    if ( $allowed = "deny" ) { return 403; }
 
     proxy_pass      http://jenkins;
   }

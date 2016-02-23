@@ -1,0 +1,20 @@
+upstream jenkins {
+  server 127.0.0.1:<%= node['jenkins']['master']['port'] %> fail_timeout=0;
+}
+
+server {
+  listen <%= node['nginx']['port'] -%>;
+  server_name  <%= node['hostname'] %>;
+
+  access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
+
+  location / {
+    <% node['nginx']['whitelisted_ips'].each do |ip| %>
+      allow <%= ip %>;
+    <% end %>
+    deny all;
+
+    proxy_redirect  http:// https://;
+    proxy_pass      http://jenkins;
+  }
+}

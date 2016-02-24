@@ -14,10 +14,6 @@ server {
   }
 
   location = /git/notifyCommit {
-    if ($http_x_forwarded_proto != 'https') {
-      rewrite ^ https://$host$request_uri? permanent;
-    }
-
     proxy_pass              http://jenkins;
     proxy_hide_header       X-Powered-By;
     proxy_intercept_errors  on;
@@ -25,7 +21,6 @@ server {
   }
 
   location / {
-
     if ($http_x_forwarded_proto != 'https') {
       rewrite ^ https://$host$request_uri? permanent;
     }

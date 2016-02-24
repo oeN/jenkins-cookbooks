@@ -8,12 +8,11 @@ server {
 
   access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
 
-  location /ping {
-    return 200 'pong';
-    add_header Content-Type text/plain;
-  }
-
   location = /git/notifyCommit {
+    if ($http_x_forwarded_proto != 'https') {
+      rewrite ^ https://$host$request_uri? permanent;
+    }
+
     proxy_pass              http://jenkins;
     proxy_hide_header       X-Powered-By;
     proxy_intercept_errors  on;

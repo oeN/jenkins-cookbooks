@@ -8,10 +8,6 @@ server {
 
   access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
 
-  if ($http_x_forwarded_proto != 'https') {
-    rewrite ^ https://$host$request_uri? permanent;
-  }
-
   location /ping {
     return 200 'pong';
     add_header Content-Type text/plain;
@@ -25,6 +21,11 @@ server {
   }
 
   location / {
+
+    if ($http_x_forwarded_proto != 'https') {
+      rewrite ^ https://$host$request_uri? permanent;
+    }
+
   <% node['nginx']['whitelisted_ips'].each do |ip| %>
     allow <%= ip %>;
   <% end %>

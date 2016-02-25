@@ -10,7 +10,7 @@ server {
   }
 
   location = /git/notifyCommit {
-    proxy_pass              http://jenkins;
+    proxy_pass              http://<%= node['jenkins']['master']['host'] %>:<%= node['jenkins']['master']['port'] %>;
     proxy_hide_header       X-Powered-By;
     proxy_intercept_errors  on;
     error_page              500 /;

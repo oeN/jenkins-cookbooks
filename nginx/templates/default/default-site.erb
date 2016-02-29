@@ -16,6 +16,13 @@ server {
     error_page              500 /;
   }
 
+  location = /github-webook {
+    proxy_pass              http://<%= node['jenkins']['master']['host'] %>:<%= node['jenkins']['master']['port'] %>;
+    proxy_hide_header       X-Powered-By;
+    proxy_intercept_errors  on;
+    error_page              500 /;
+  }
+
   location / {
     if ($http_x_forwarded_proto != 'https') {
       rewrite ^ https://$host$request_uri? permanent;
